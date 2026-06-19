@@ -189,3 +189,54 @@ h1 {
   background: #2f80ed;
   color: #ffffff;
 }
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.auth-form input:focus {
+  border-color: #7ed957;
+}
+
+.btn-submit {
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #7ed957;
+  color: #123d24;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-submit:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+#mensagem {
+  margin-top: 12px;
+  font-size: 15px;
+  min-height: 22px;
+}
