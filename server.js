@@ -10,6 +10,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
+const productRoutes = require("./src/routes/productRoutes");
 
 const PAGES = path.join(__dirname, "public", "pages");
 
@@ -21,5 +22,6 @@ app.get("/user", (req, res) => res.sendFile(path.join(PAGES, "user.html")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
