@@ -1,0 +1,31 @@
+Montar o CRUD de usuário.
+
+Divida em algumas subtarefas:
+
+
+1. Tela de login em HTML/CSS
+2. Cadastro de usuário
+3. Banco  DynamoDb com tabela usuarios
+4. Backend Node.js/Express
+5. CRUD de usuáriosaws
+6. Verificação de email/senha no login
+7. Segurança básica: senha com hash, não salvar senha pura
+8. Redirecionar usuário logado para a área correta
+9. Redirecionamento admin/user
+10. CRUD de produtos no backend
+11. Tela admin cadastrando produtos
+12. Tela user listando produtos
+13. Carrinho local
+14. Criar pedido simulado
+15. Admin visualizar pedidos
+16. README bonito com prints
+17. Melhorar autenticação com JWT
+18. Deploy
+
+
+
+Usar o Dynamo Db local usando o docker para registar.
+
+
+
+Para o front: hospeda no S3 pela AWS.

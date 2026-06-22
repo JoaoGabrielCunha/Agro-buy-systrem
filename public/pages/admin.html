@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin — Agro Sistema</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="admin-layout">
+
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <span class="admin-logo">🌾 Agro Sistema</span>
+        <span class="admin-tag">Administrador</span>
+      </div>
+      <div class="admin-header-right">
+        <span class="admin-nome">Olá, <strong id="nomeAdmin">Admin</strong></span>
+        <button id="btnLogout" class="btn-logout">Sair</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-toolbar">
+        <h2>Gestão de Produtos</h2>
+        <button class="btn-novo-produto" onclick="abrirNovo()">+ Novo Produto</button>
+      </div>
+
+      <div id="produtosGrid" class="produtos-grid-admin">
+        <p class="sem-produtos">Carregando produtos...</p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Modal de criação/edição -->
+  <div id="modal" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitulo">Novo Produto</h3>
+        <button class="modal-fechar" onclick="fecharModal()">✕</button>
+      </div>
+
+      <form id="formProduto" enctype="multipart/form-data">
+        <div class="form-grid">
+
+          <div class="form-group full">
+            <label>Nome *</label>
+            <input type="text" id="inputNome" placeholder="Nome do produto" required />
+          </div>
+
+          <div class="form-group">
+            <label>Preço (R$) *</label>
+            <input type="number" id="inputPreco" placeholder="0.00" step="0.01" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label>Estoque *</label>
+            <input type="number" id="inputEstoque" placeholder="0" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label>Categoria *</label>
+            <select id="inputCategoria" required>
+              <option value="">Selecione...</option>
+              <option value="Sementes">Sementes</option>
+              <option value="Fertilizantes">Fertilizantes</option>
+              <option value="Ferramentas">Ferramentas</option>
+              <option value="Defensivos">Defensivos</option>
+              <option value="Irrigação">Irrigação</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Unidade *</label>
+            <select id="inputUnidade" required>
+              <option value="">Selecione...</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="litro">litro</option>
+              <option value="ml">ml</option>
+              <option value="unidade">unidade</option>
+              <option value="saco">saco</option>
+              <option value="caixa">caixa</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Descrição</label>
+            <textarea id="inputDescricao" placeholder="Descreva o produto..." rows="3"></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label>Imagem (PNG / JPG)</label>
+            <input type="file" id="inputImagem" accept="image/png,image/jpeg,image/jpg,image/webp" />
+            <div id="imgAtualContainer" style="display: none; margin-top: 10px;">
+              <p class="label-img-atual">Imagem atual:</p>
+              <img id="imgAtual" class="preview-thumb" />
+            </div>
+            <img id="previewImg" class="preview-thumb" style="display: none; margin-top: 10px;" />
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+          <button type="submit" id="btnSalvar" class="btn-salvar">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

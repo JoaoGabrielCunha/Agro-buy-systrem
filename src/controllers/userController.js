@@ -9,57 +9,44 @@ async function criarUsuario(req, res) {
     const { nome, email, senha, tipo } = req.body;
 
     if (!nome || !email || !senha || !tipo) {
-      return res.status(400).json({
-        erro: "Nome, email, senha e tipo são obrigatórios.",
-      });
+      return res.status(400).json({ erro: "Campos obrigatórios: nome, email, senha, tipo." });
     }
 
-    const usuarioCriado = await criarUsuarioService({ nome, email, senha, tipo });
+    if (!["admin", "user"].includes(tipo)) {
+      return res.status(400).json({ erro: "Tipo deve ser 'admin' ou 'user'." });
+    }
 
-    res.status(201).json({
-      mensagem: "Usuário criado com sucesso.",
-      usuario: usuarioCriado,
-    });
-  } catch (erro) {
-    console.error("Erro ao criar usuário:", erro);
-
-    if (erro.name === "ConditionalCheckFailedException") {
+    const usuario = await criarUsuarioService({ nome, email, senha, tipo });
+    return res.status(201).json({ mensagem: "Usuário criado com sucesso.", usuario });
+  } catch (err) {
+    if (err.name === "ConditionalCheckFailedException") {
       return res.status(409).json({ erro: "Já existe uma conta com esse e-mail." });
     }
-
-    res.status(500).json({ erro: "Erro interno ao criar usuário." });
+    console.error("Erro ao criar usuário:", err);
+    return res.status(500).json({ erro: "Erro interno ao criar usuário." });
   }
 }
 
 async function listarUsuarios(req, res) {
   try {
     const usuarios = await listarUsuariosService();
-
-    const usuariosSemSenha = usuarios.map(({ senhaHash, senha, ...dadosPublicos }) => dadosPublicos);
-
-    res.status(200).json(usuariosSemSenha);
-  } catch (erro) {
-    console.error("Erro ao listar usuários:", erro);
-    res.status(500).json({ erro: "Erro ao listar usuários." });
+    const usuariosSemSenha = usuarios.map(({ senhaHash, ...dadosPublicos }) => dadosPublicos);
+    return res.status(200).json(usuariosSemSenha);
+  } catch (err) {
+    console.error("Erro ao listar usuários:", err);
+    return res.status(500).json({ erro: "Erro ao listar usuários." });
   }
 }
 
 async function buscarUsuarioPorEmail(req, res) {
   try {
-    const { email } = req.params;
-
-    const usuario = await buscarUsuarioPorEmailService(email);
-
-    if (!usuario) {
-      return res.status(404).json({ erro: "Usuário não encontrado." });
-    }
-
-    const { senhaHash, senha, ...dadosPublicos } = usuario;
-
-    res.status(200).json(dadosPublicos);
-  } catch (erro) {
-    console.error("Erro ao buscar usuário:", erro);
-    res.status(500).json({ erro: "Erro ao buscar usuário." });
+    const usuario = await buscarUsuarioPorEmailService(req.params.email);
+    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado." });
+    const { senhaHash, ...dadosPublicos } = usuario;
+    return res.status(200).json(dadosPublicos);
+  } catch (err) {
+    console.error("Erro ao buscar usuário:", err);
+    return res.status(500).json({ erro: "Erro ao buscar usuário." });
   }
 }
 

@@ -4,28 +4,24 @@ const path = require("path");
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "index.html"));
-});
+const authRoutes = require("./src/routes/authRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const productRoutes = require("./src/routes/productRoutes");
 
-app.get("/admin", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "admin.html"));
-});
+const PAGES = path.join(__dirname, "public", "pages");
 
-app.get("/user", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "user.html"));
-});
+app.get("/", (req, res) => res.sendFile(path.join(PAGES, "index.html")));
+app.get("/login", (req, res) => res.sendFile(path.join(PAGES, "login.html")));
+app.get("/cadastro", (req, res) => res.sendFile(path.join(PAGES, "cadastro.html")));
+app.get("/admin", (req, res) => res.sendFile(path.join(PAGES, "admin.html")));
+app.get("/user", (req, res) => res.sendFile(path.join(PAGES, "user.html")));
 
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "login.html"));
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
-app.get("/cadastro", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "cadastro.html"));
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
