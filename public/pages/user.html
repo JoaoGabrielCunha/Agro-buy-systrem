@@ -3,17 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Área do Usuário</title>
+  <title>Loja — Agro Sistema</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
-  <main class="page-container">
-    <section class="page-card">
-      <h1>Área do Usuário</h1>
-      <p>Esta página ficará responsável pela visualização e compra de produtos agrícolas.</p>
+<body class="user-body">
 
-      <a href="/" class="back-link">Voltar para a tela inicial</a>
-    </section>
+  <header class="user-header">
+    <div class="user-header-left">
+      <span class="user-logo">🌾 Agro Sistema</span>
+    </div>
+    <div class="user-header-right">
+      <span class="user-greeting">Olá, <strong id="nomeUsuario">Usuário</strong></span>
+      <button id="btnLogout" class="btn-logout">Sair</button>
+    </div>
+  </header>
+
+  <section class="user-hero">
+    <h1>Produtos Agrícolas</h1>
+    <p>Encontre tudo que você precisa para o campo</p>
+    <div class="busca-container">
+      <input type="text" id="buscaInput" placeholder="🔍  Buscar produto..." class="busca-input" />
+    </div>
+  </section>
+
+  <section class="filtros-section">
+    <div id="filtrosCategorias" class="filtros-categorias">
+      <button class="filtro-btn ativo" onclick="filtrarCategoria('Todos')">Todos</button>
+    </div>
+  </section>
+
+  <main class="user-main">
+    <div id="produtosGrid" class="produtos-grid">
+      <p class="sem-produtos">Carregando produtos...</p>
+    </div>
   </main>
+
+  <script src="/js/user.js"></script>
 </body>
 </html>
